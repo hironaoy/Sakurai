@@ -1,0 +1,96 @@
+\documentclass{jarticle}
+
+\usepackage[deluxe]{otf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{framed}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{mathtools}
+
+\mathtoolsset{showonlyrefs=true}
+
+\begin{document}
+\noindent
+\textbf{J.J. Sakurai \& Jim Napolitano, Modern Quantum Mechanics}
+\footnote{
+  参照せよ：\texttt{github.com/hironaoy/QuantumMechanics}（PDF/\LaTeX）
+}
+\hfill Apr 17, 2024\vspace{-2mm} \\
+\hrulefill \\
+\begin{enumerate}
+\item \textgt{Stern \raisebox{0.9mm}{\rule{1.5mm}{0.2mm}} Gerlachの実験} \textgt{（SG実験）}
+  
+  * この実験の詳細は口頭で説明しますので記述は最低限にとどめます．
+  \begin{itemize}
+  \item [$\circ$] 実験の設定
+
+    銀原子のビームが不均一磁場を通り抜けた後にどのように分布するかを調べた．（教科書 p. 2, Fig. 1.1のSG装置を参照）
+
+  \item [$\circ$] 古典物理学による予測と実際の結果
+
+    古典物理学によれば銀原子には$z$方向に特定の範囲でランダムに分布した力が働くから，一定の範囲に連続的に銀原子ビームの到達が観測されるはずである．
+    
+    実際の結果はただ2箇所に分かれて分布した．（古典物理学の破綻）
+
+  \item [$\circ$] 多重SG実験
+
+    SG装置を用いて2つに別れたうちの一方を抜き出すことができる．これを$S_z$について，$S_x$について，$S_z$についての順で行う．（教科書p.5, Fig. 1.3 c参照）最後には1つ目のSG装置で排除されたはずの成分が観測される．（観測によって情報が失われるのではないか）
+
+  \item [$\circ$] 状態をベクトルで表現するモチベーション（偏光からの類推）
+
+    多重SG実験によく似た古典的状況として，単色平面波の電磁波を偏光板フィルターに複数回通すという状況がある．（状態は複素ベクトルで記述されるべきと類推される）    
+  \end{itemize}
+
+\item \textgt{ブラ・ケット記法}
+  \begin{itemize}
+  \item [$\circ$] ブラ・ケット（brackets）
+    
+    量子力学では系の状態は複素ベクトル空間の元（つまり，ベクトル）として表現される．そのベクトルをケット$\ket{\alpha}$で表す．すべてのケット$\ket{\alpha}$に対してただ一つの対になる別の空間のベクトルが存在する．それを$\bra{\alpha}$で表す．ブラ・ケットはベクトルだから和とスカラー倍が定義できて云々．あるケットの対になるブラ，または，あるブラの対になるケットは次の関係にしたがって作れる．
+    \begin{align}
+      c_\alpha \ket{\alpha} + c_\beta \ket{\beta} \quad &\xleftrightarrow{\quad\mathrm{DC}\quad}
+      \quad c_\alpha^* \bra{\alpha} + c_\beta^* \bra{\beta}
+    \end{align}
+
+  \item [$\circ$] 内積（inner products）
+    
+    内積$\bra{\alpha}\ket{\beta}$を一般的な内積の定義と同じように定義する．
+    \begin{align}
+      \qty(\bra{\alpha} + \bra{\beta}) \ket{\gamma}
+      = \bra{\alpha}\ket{\gamma} + \bra{\beta}\ket{\gamma}, \quad
+      \bra{\alpha}\ket{\beta} = \bra{\beta}\ket{\alpha}^*, \quad
+      \bra{\alpha}\ket{\alpha} \geq 0 
+    \end{align}
+    加えて，$\ket{\alpha}$と$\ket{\beta}$の直交（orthogonality）を$\bra{\alpha}\ket{\beta} = 0$で定義する．
+
+  \item [$\circ$] 演算子（operators）
+
+    演算子はケットには左から，ブラには右から作用し，それぞれ別のケット，ブラを返す．演算子$X$と$Y$が等しい$X = Y$とは任意のケット$\ket{\alpha}$またはブラ$\bra{\alpha}$に対して，次が成り立つことである．
+    \begin{align}
+      X\ket{\alpha} = Y\ket{\alpha} \quad \mathrm{or} \quad \bra{\alpha}X = \bra{\alpha}Y
+    \end{align}
+    演算子$X$がヌル演算子（null operator）であるとは，任意のケット$\ket{\alpha}$またはブラ$\bra{\alpha}$に対して，次が成り立つことである．
+    \begin{align}
+      X \ket{\alpha} = 0 \quad \mathrm{or} \quad \bra{\alpha} X = 0
+    \end{align}
+    演算子が作用している場合のブラとケットの対応は
+    \begin{align}
+      X \ket{\alpha} \quad \xleftrightarrow{\quad\mathrm{DC}\quad} \quad \bra{\alpha}X^\dagger
+    \end{align}
+    である．ここで，$X^\dagger$は$X$エルミート共役演算子（Hermitian adjoint operator）である．（これを$X^\dagger$の定義であると言ったほうが適切かもしれませんが，ブラ空間とケット空間の対称性を意識するとこう書きたくなってしまうのが本音です）
+
+  \item [$\circ$] 乗算（multiplication）
+
+    演算子とブラ・ケットを組み合わせていろいろな積を定義することができる．その定義には先述の事項と結合律（assosiative property）を認めるだけで良い．ただし，うっかり交換律（commutative property）を認めてしまわないように注意する．網羅すべき積の例は口頭で説明します．
+
+  \item [$\circ$]＜数学＞： 演算子，ブラ・ケットの数学的な解釈
+
+    ケット空間は数学的にはHilbert空間（以下で$H_\mathrm{K}$で表す）である．ブラ空間は$H_\mathrm{K}$の双対空間（$H_\mathrm{K}$上の写像$\varphi_\mathrm{K}: H_\mathrm{K} \rightarrow \bf{C}$全体の集合）である．逆にブラ空間もHilbert空間（以下で$H_\mathrm{B}$で表す）でケット空間は$H_\mathrm{B}$の双対空間（$H_\mathrm{B}$上の写像$\varphi_{\mathrm{B}}: H_\mathrm{B} \rightarrow \bf{C}$全体の集合）である．内積を計算することは$\varphi_\mathrm{K}(\ket{\alpha}), \, \varphi_\mathrm{B}(\bra{\alpha})$を計算することに相当する．
+
+    演算子はブラ空間，または，ケット空間上の写像$\varphi_\mathrm{X}: H_\mathrm{X} \rightarrow H_\mathrm{X}, \, \mathrm{X = K, \, B}$である．だから，厳密には$\bra{\alpha}A\ket{\beta}$のような式の$A$はブラに作用するかケットに作用するかで作用させているものが異なるが，それを特に意識しなくてよいのがブラ・ケット記法の便利な点ではなかろうか．
+  \end{itemize}
+\end{enumerate}
+\noindent
+\end{document}
+

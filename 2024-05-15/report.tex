@@ -1,0 +1,189 @@
+\documentclass{jarticle}
+
+\usepackage[deluxe]{otf}
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{framed}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{mathtools}
+
+\mathtoolsset{showonlyrefs=true}
+
+\begin{document}
+\noindent
+\textbf{J.J. Sakurai \& Jim Napolitano, Modern Quantum Mechanics}
+\footnote{
+参照せよ：\texttt{github.com/hironaoy/Sakurai}（PDF/\LaTeX）（リポジトリ名を変更しました）
+}
+\hfill May 15, 2024\vspace{-2mm} \\
+\hrulefill \\
+
+\noindent
+\begin{enumerate}
+\item \textgt{Schrödinger方程式}
+
+  \begin{itemize}
+  \item [$\circ$] 系の時間発展
+
+    系を記述するヒルベルト空間自体は時間発展しないと考える．つまり，基底の組$\qty{\ket{a'}}$は時間が経過しても変化しない．系の状態は対象とするヒルベルト空間の元で表されるわけであるが，系の状態の時間発展は系の状態を表す元が別の元になることによって表現される．よって，時間発展する系の状態を$\ket{\alpha(t)}$のように表すとき，基底で展開したときの係数が時間変化する：
+    \begin{align}
+      \ket{\alpha(t)} = \sum_{a'} c_{a'}(t) \ket{a'}
+    \end{align}
+
+  \item [$\circ$] 時間発展演算子（time-evolution operator）
+
+    任意の時刻$t, \, t'$に対して，各々の系の状態を$\ket{\alpha(t)}, \, \ket{\alpha(t')}$で表す．このとき，時間発展演算子を次を満たすものとして定める．
+    \begin{align}
+      \ket{\alpha(t)} = \mathscr{U}(t, t')\ket{\alpha(t')}, \quad \mathscr{U}^\dagger(t, t') \mathscr{U}(t, t') = 1, \quad \mathscr{U}(t, t'') = \mathscr{U}(t, t') \mathscr{U}(t', t'') \tag{1.1} \label{unitarity}
+    \end{align}
+    この定義が物理的に妥当であることは容易にわかる．特に微小な時間発展$t \longrightarrow t + \dd t$の場合には時間発展演算子$\mathscr{U}(t + \dd t, t)$を次のように取れる．（無限小平行移動の場合と同様）
+    \begin{align}
+      \mathscr{U}(t + \dd t, t) = 1 - \frac{i H \dd t}{\hbar}, \quad H：ハミルトニアン演算子 \tag{1.2} \label{inftime}
+    \end{align}
+    
+    
+  \item [$\circ$] 時間発展演算子が満たす方程式：Schrödinger方程式
+
+    \eqref{unitarity}の第3の条件と\eqref{inftime}から任意の時刻$t$と基準の時刻$t_0$に関して次の式が成り立つことがわかる．
+    \begin{gather}
+      \mathscr{U}(t + \dd t, t_0) = \mathscr{U}(t + \dd t, t)\mathscr{U}(t, t_0) = \qty(1 - \frac{i H \dd t}{\hbar}) \mathscr{U}(t, t_0) \\
+      \frac{\mathscr{U}(t + \dd t, t_0) - \mathscr{U}(t, t_0)}{\dd t} = - \frac{iH}{\hbar}\mathscr{U}(t, \, t_0) \quad \mathrm{i.e.} \quad i\hbar \pdv{\mathscr{U}(t, t_0)}{t} = H \mathscr{U}(t, t_0) \tag{1.3} \label{schro}
+    \end{gather}
+    これはSchrödinger方程式．時間発展演算子に対する要請を踏まえるとごく自然に導出されることに注意する．
+
+  \item [$\circ$] Schrödinger方程式の解
+
+    各時刻$t$におけるハミルトニアン演算子$H = H(t)$が交換する場合，つまり，任意の時刻$t, \, t'$について，$\qty[H(t), H(t')] = 0$の場合には
+    \begin{gather}
+      \mathscr{U}(t, t_0) = \exp{-\frac{i}{\hbar} \int_{t_0}^t \dd t' \, H(t')}, \quad
+      特にHが時間非依存なら \quad \mathscr{U}(t, t_0) = \exp{\frac{-i H \cdot (t - t_0)}{\hbar}}
+    \end{gather}
+    各時刻$t$におけるハミルトニアン演算子$H = H(t)$で交換しないものがある場合，つまり，ある時刻$t_1, \, t_2, \, t_3 , \cdots$において$\qty[H(t_1), H(t_2)] \ne 0, \, \qty[H(t_2), H(t_3)] \ne 0, \cdots$であるような場合にはDyson級数
+    \begin{align}
+      \mathscr{U}(t, t_0) = 1 + \sum_{n = 1}^{\infty} \qty(-\frac{i}{\hbar})^n
+      \int_{t_0}^t\dd t_1 \int_{t_0}^{t_1}\dd t_2 \cdots \int_{t_0}^{t_{n-1}}\dd t_n \, H(t_1) H(t_2) \cdots H(t_n)
+    \end{align}
+    で与えられる．
+
+  \item [$\circ$] 時間発展演算子のスペクトル分解 %% 怪しい
+
+    教科書 p. 29 式 (1.130) の記法に従って固有ケットの組$\qty{\ket{K'}}$があって，加えてハミルトニアン演算子$H$が$K$と交換する場合，時間発展演算子を展開できる．
+    \begin{align}
+      \exp(\frac{-i H t}{\hbar}) = \sum_{K'}\exp(\frac{-E_{K'}t}{\hbar})\ket{K'}\bra{K'} \quad
+      \mathrm{where} \quad H\ket{K'} = E_{K'}\ket{K'}
+    \end{align}
+
+    
+  %% \item [$\circ$] ＜蛇足＞：波動力学の方程式との対応
+
+  %%   波動力学でおなじみのSchrödinger方程式と\eqref{schro}は少々異なる．そもそも波動力学ではSchrödinger方程式は波動関数$\psi(t, \mathbf{x})$が満たす方程式であった：
+  %%   \begin{gather}
+  %%     i\hbar \pdv{\psi(t, \mathbf{x})}{t} = H' \psi(t, \mathbf{x})
+  %%   \end{gather}
+  %%   ここでブラ・ケット記法における演算子とそれに対応する波動力学の演算子が異なるものであることを踏まえてハミルトニアン演算子を$H'$と書く．ブラケット記法における時間発展演算子が満たす方程式としてのSchrödinger方程式から，波動力学におけるSchrödingerが再現されることを次に示す：\eqref{schro}より
+    
+  \end{itemize}
+
+\item \textgt{Heisenberg描像（Heisenberg picture）}
+
+  \begin{itemize}
+
+  \item [$\circ$] Schrödinger描像とHeisenberg描像の等価性
+
+    これまでのように，系の状態を記述するケット$\ket{\alpha(t)}$が時間変化するとして考えた場合，物理量$A$の期待値は時間発展演算子$\mathscr{U}(t, t_0)$を用いて，次のように表される．
+    \begin{align}
+      \qty{\bra{\alpha (t_0)}\mathscr{U}^\dagger(t, t_0)} A \qty{\mathscr{U}(t, t_0)\ket{\alpha (t_0)}} = \bra{\alpha (t_0)}\qty{\mathscr{U}^\dagger(t, t_0) A \mathscr{U}(t, t_0)}\ket{\alpha (t_0)}
+    \end{align}
+    結合律に依拠して，右辺のように書き直した暁には状態ケット$\ket{\alpha}$が変化するのではなく，物理量に対応する演算子が$\mathscr{U}^\dagger(t) A \mathscr{U}(t)$のように時間発展すると解釈しても良いのではないかという思想が生まれる．その解釈はHeisenberg描像と呼ばれ，以前までの記述法であるSchrödinger描像と区別される．
+
+  %% \item [$\circ$] Schrödinger描像とHeisenberg描像の関連
+
+    
+  \item [$\circ$] Heisenbergの運動方程式（Heisenberg's equation of motion）
+
+    Schrödinger描像におけるSchrödinger方程式に相当するものをHeisenberg描像においても導くことができる．
+    \begin{align}
+      \dv{t} \qty(\mathscr{U}^\dagger A \mathscr{U}) &= \dv{\mathscr{U}^\dagger}{t} A \mathscr{U} + \mathscr{U}^\dagger A \dv{\mathscr{U}}{t} \\
+      &= - \frac{1}{i\hbar} \mathscr{U}^\dagger H \mathscr{U} \mathscr{U}^\dagger A \mathscr{U}
+      + \frac{1}{i\hbar} \mathscr{U}^\dagger A \mathscr{U} \mathscr{U}^\dagger H \mathscr{U} = \frac{1}{i\hbar}\qty[\mathscr{U}^\dagger A \mathscr{U}, H]
+    \end{align}
+    Heisenberg描像における演算子を$A^{(\text{{\tiny H}})} = \mathscr{U}^\dagger A \mathscr{U}$と書くことにすると，これは
+    \begin{align}
+      \dv{t} A^{(\text{{\tiny H}})} = \frac{1}{i\hbar}\qty[A^{(\text{{\tiny H}})}, H]
+    \end{align}
+    と書ける．これはHeisenbergの運動方程式．
+    
+  \item [$\circ$] Ehrenfestの定理（Ehrenfest's theorem）
+
+    ハミルトニアン$H$が次の形
+    \begin{align}
+      H = \frac{\mathbf{p}^2}{2m} + V(\mathbf{x})
+    \end{align}
+    で与えられた場合の粒子の運動をHeisenbergの運動方程式に基づいて考える．まず
+    \begin{align}
+      \dv{p_i}{t} = \frac{1}{i\hbar}\qty[p_i, H] &= \frac{1}{i\hbar}\qty[p_i, \frac{\mathbf{p}^2}{2m} + V(\mathbf{x})] = \frac{1}{i\hbar} \qty[p_i, V(\mathbf{x})] = - \pdv{V(\mathbf{x})}{x_i} \tag{2.1} \label{dp}
+    \end{align}
+    である．また
+    \begin{align}
+      \dv{x_i}{t} = \frac{i}{i\hbar}\qty[x_i, H] = \frac{1}{i\hbar}\qty[x_i, \frac{\mathbf{p}^2}{2m} + V(\mathbf{x})] = \frac{1}{i\hbar}\qty[x_i, \frac{\mathbf{p}^2}{2m}] = \frac{p_i}{m} \tag{2.2} \label{dx}
+    \end{align}
+    である．\eqref{dp}と\eqref{dx}を組み合わせたのちにベクトルの形式で書き直すと，演算子に対するNewtonの運動方程式
+    \begin{align}
+      m\dv[2]{\mathbf{x}}{t} = - \pdv{V(\mathbf{x})}{\mathbf{x}} \quad \mathrm{i.e.} \quad
+      m\dv[2]{\ev{\mathbf{x}}}{t} = - \ev{\pdv{V(\mathbf{x})}{\mathbf{x}}}
+    \end{align}
+    を得る．最後にブラ・ケットを左右から乗じて期待値の形に書き直している．これはEhrenfestの定理と呼ばれる．
+  \end{itemize}
+
+\item \textgt{調和振動子（harmonic oscillator）}
+  \begin{itemize}
+  \item [$\circ$] 生成・消滅演算子（creation/annihilation\footnote{発音は「アナイアレイション」です．} operator）
+
+    生成・消滅演算子，および，数演算子（number operator）を次で定義する．
+    \begin{align}
+      a = \sqrt{\frac{m\omega}{2\hbar}}\qty(x + i\frac{p}{m\omega}), \quad
+      a^\dagger = \sqrt{\frac{m\omega}{2\hbar}}\qty(x - i\frac{p}{m\omega}), \quad N = a^\dagger a
+    \end{align}
+    これらは次のような性質を満たす．
+    \begin{align}
+      \qty[a, a^\dagger] = 1, \quad [N, a] = -a, \quad [N, a^\dagger] = a^\dagger, \quad N\,：エルミート
+    \end{align}
+    $N$はエルミートなのだから実数の固有値$n$を持つ．それを$N\ket{n} = n\ket{n}$と書く\footnote{1次元の系は非縮退であるからこのように書いて良い．}．すると，次の性質を満たす．
+    \begin{align}
+      a\ket{n} = \sqrt{n}\ket{n - 1}, \quad a^\dagger \ket{n} = \sqrt{n + 1}\ket{n + 1}, \quad n = 0, 1, 2, \cdots
+    \end{align}
+    （これらの性質の導出は口頭で行います．）
+
+  \item [$\circ$] エネルギー固有値・固有ケット
+
+    数演算子$N$とハミルトニアン$H$は次の式で関連する．
+    \begin{align}
+      N = \hbar \omega \qty(N + \frac{1}{2}) \tag{3.1}
+    \end{align}
+    これより，$N$と$H$が同時対角化可能であることは明らかである．よって，$N$の固有ケット$\ket{n}$はエネルギー固有ケットでもある．つまり
+    \begin{align}
+      H\ket{n} = E_n\ket{n}, \quad E_n = \hbar \omega \qty(n + \frac{1}{2})
+    \end{align}
+  \item [$\circ$] 位置基底の波動関数
+
+    基底として位置固有ケットを採用し，具体的な波動関数を得る．$a\ket{0} = 0$から始める：
+    \begin{align}
+      \bra{x'}a\ket{0} = \sqrt{\frac{m\omega}{2\hbar}} \bra{x'}\qty(x + i\frac{p}{m\omega})\ket{0} = 0 \quad \mathrm{i.e.} \quad \qty(x' + x_0^2\dv{x'})\bra{x'}\ket{0} = 0 \quad \mathrm{where} \quad x_0 \equiv \sqrt{\frac{\hbar}{m\omega}}
+    \end{align}
+    ここで得られた微分方程式は容易に解けて
+    \begin{align}
+      \bra{x'}\ket{0} = \qty(\frac{1}{\pi^{1/4}\sqrt{x_0}})\exp{-\frac{1}{2}\qty(\frac{x'}{x_0})^2}
+    \end{align}
+    規格化は$\bra{0}\ket{0} = 1$の条件によって行う．この基底状態の波動関数と生成演算子によって，一般の$\bra{x'}\ket{n}$も計算できる．
+    \begin{align}
+      \bra{x'}\ket{n} = \qty(\frac{1}{\pi^{1/4}\sqrt{2^nn!}})\qty(\frac{1}{x_0^{n + 1/2}})
+      \qty(x' - x_0^2\dv{x'})^n \exp\qty{-\frac{1}{2}\qty(\frac{x'}{x_0})^2}
+    \end{align}
+    \item []
+  \end{itemize}
+\end{enumerate}
+\end{document}
+

@@ -1,0 +1,97 @@
+\documentclass{jarticle}
+
+\usepackage[deluxe]{otf}
+\usepackage{amsmath}
+\usepackage{framed}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{mathtools}
+
+\mathtoolsset{showonlyrefs=true}    
+
+\begin{document}
+\noindent
+\textbf{J.J. Sakurai \& Jim Napolitano, Modern Quantum Mechanics}
+\footnote{
+  参照せよ：\texttt{github.com/hironaoy/QuantumMechanics}（PDF/\LaTeX）
+}
+\hfill Apr 24, 2024\vspace{-2mm} \\
+\hrulefill \\
+
+\noindent
+\begin{enumerate}
+\item \textgt{基底ブラ・ケット}
+
+  \begin{itemize}
+  \item [$\circ$] 固有ブラ・ケットの直交性
+
+    エルミート演算子の固有値は実数で，かつ，固有ブラ・ケットは互いに直交する．証明は次の通り．
+
+    エルミート演算子$A$は任意の2つの固有値$a', \, a''$とそれらに対応する固有ケット$\ket{a'}, \, \ket{a''}$のそれぞぞれに対して，次を満たす．
+    \begin{align}
+      A\ket{a'} = a'\ket{a'}, \quad \bra{a''}A = a''^*\bra{a''}
+    \end{align}
+    $\ket{a'}$や$\bra{a''}$を乗じて，両式の差を考えると次を得る．
+    \begin{align}
+      (a' - a''^*) \bra{a''}\ket{a'} = 0
+    \end{align}
+    ここで，内積の正定値性から$a' = a''$の場合は$\bra{a''}\ket{a'} \ne 0$なので$a' = a''$，つまり，固有値は実数．また，$a'' \ne a'$の場合は$\bra{a''}\ket{a'} \ne 0$，つまり，直交する．
+
+  \item [$\circ$] ブラ・ケット空間の基底
+
+    エルミート演算子の固有ブラ・ケットの全体の集合$\qty{\bra{a'}}, \, \qty{\ket{a'}}$が完全系を張ることを要請する。一般に$\bra{a'}\ket{a''} = \delta_{a'a''}$と正規化しておくことが多い。よって、エルミート演算子の固有ブラ・ケットの全体の集合$\qty{\bra{a'}}, \, \qty{\ket{a'}}$は正規直交完全系を張る。つまり、対象とするブラ・ケット空間の任意のブラ・ケットは固有ブラ・ケットで展開可能。
+    \begin{align}
+      \ket{\alpha} = \sum_{a'} c_{a'} \ket{a'} \quad \xleftrightarrow{\quad\mathrm{DC}\quad} \quad 
+      \bra{\alpha} = \sum_{a'} c_{a'}^* \bra{a'} \tag{1.1} \label{expansion}
+    \end{align}
+
+  \item [$\circ$] 完全性関係式（completeness relation）
+
+    式\eqref{expansion}の両辺に$\bra{a''}$または$\ket{a''}$を乗じて、正規直交の条件式$\bra{a'}\ket{a''} = \delta_{a'a''}$を適用すると、次を得る。
+    \begin{align}
+      \bra{a''}\ket{\alpha} & = \sum_{a'}c_{a'} \bra{a''}\ket{a'} & \bra{\alpha}\ket{a''} & = \sum_{a'}c_{a'}^* \bra{a'} \ket{a''} \\
+                            & = \sum_{a'}c_{a'} \delta_{a''a'} = c_{a''}    &                       & = \sum_{a'}c_{a'}^* \delta_{a'a''} = c_{a''}^*
+    \end{align}    
+    この係数$\bra{a''}\ket{\alpha}$と$\bra{\alpha}\ket{a''}$の関係は内積の定義から自明な事柄である。
+
+    いま、式\eqref{expansion}の係数をここで得た内積の表式で書き換える。
+    \begin{align}
+      \ket{\alpha} = \sum_{a'} \ket{a'} \bra{a'}\ket{\alpha} \quad \xleftrightarrow{\quad\mathrm{DC}\quad} \quad 
+      \bra{\alpha} = \sum_{a'} \bra{\alpha}\ket{a'}\bra{a'}
+    \end{align}
+    $a'$に依存しない部分を和の記号から隔離することで次の関係が得られる。
+    \begin{align}
+      \sum_{a'} \ket{a'}\bra{a'} = 1
+    \end{align}
+    これは完全性関係式と呼ばれるものである。
+  \end{itemize}
+
+\item \textgt{成分表示}
+  \begin{itemize}
+  \item [$\circ$] 演算子
+
+    基底の組$\qty{\ket{e'}}$を定めると演算子の成分表示を定義できる．演算子$A$の$(e', \, e'')$成分$A_{e'e''}$を
+    \begin{align}
+      A_{e'e''} = \bra{e'}A\ket{e''}
+    \end{align}
+    で定める．これは，離散的な基底であれば行列の形式で表示でき，連続的な基底であれば2変数の関数となる．
+
+  \item [$\circ$] ブラ・ケット
+
+    同様にブラ・ケットの成分表示も定義できる．ブラ・ケット$\bra{\alpha}, \, \ket{\alpha}$の$e'$成分$\qty(\bra{\alpha})_{e'}, \, \qty(\ket{\alpha})_{e'}$をそれぞれ
+    \begin{align}
+      \qty(\bra{\alpha})_{e'} = \bra{\alpha}\ket{e'}, \quad
+      \qty(\ket{\alpha})_{e'} = \bra{e'}\ket{\alpha}
+    \end{align}
+    で定める．これは，離散的な基底であれば数ベクトルの形式で表示でき，連続的な基底であれば1変数の関数となる．
+  \end{itemize}
+
+\item \textgt{不確定性関係（the uncertainty relation）}
+
+  \begin{itemize}
+  \item [$\circ$] 
+  \end{itemize}
+\end{enumerate}
+\end{document}
+
