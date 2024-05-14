@@ -177,12 +177,31 @@
     \begin{align}
       \bra{x'}\ket{0} = \qty(\frac{1}{\pi^{1/4}\sqrt{x_0}})\exp{-\frac{1}{2}\qty(\frac{x'}{x_0})^2}
     \end{align}
-    規格化は$\bra{0}\ket{0} = 1$の条件によって行う．この基底状態の波動関数と生成演算子によって，一般の$\bra{x'}\ket{n}$も計算できる．
+    規格化は$\bra{0}\ket{0} = 1$の条件によって行っている．また，一般の波動関数$\bra{x'}\ket{n}$は次のように表現されることが示される．
     \begin{align}
       \bra{x'}\ket{n} = \qty(\frac{1}{\pi^{1/4}\sqrt{2^nn!}})\qty(\frac{1}{x_0^{n + 1/2}})
       \qty(x' - x_0^2\dv{x'})^n \exp\qty{-\frac{1}{2}\qty(\frac{x'}{x_0})^2}
     \end{align}
-    \item []
+  \item [$\circ$] 不確定性関係
+
+    励起状態$\ket{n}$における$x$や$p$の分散の期待値を計算すると次の関係を得る．（導出は口頭で行います）
+    \begin{align}
+      \ev{\qty(\Delta x)^2}\ev{\qty(\Delta p)^2} = \qty(n + \frac{1}{2})^2\hbar^2
+    \end{align}
+
+  \item [$\circ$] $x, p$の時間発展
+
+    Heisenbergの運動方程式から出発する．$x, p, a, a^\dagger$に関して次が成り立つ．
+    \begin{align}
+      \dv{p}{t} = -m\omega^2x, \quad \dv{x}{t} = \frac{p}{m}, \quad
+      \dv{a}{t} = -i\omega a, \quad \dv{a^\dagger}{t} = i\omega a^\dagger  \tag{3.1} \label{xpaa}
+    \end{align}
+    \eqref{xpaa}を解いて$x(t), p(t)$に関して次の関係を得る．
+    \begin{align}
+      x(t) = x(0)\cos \omega t + \frac{p(0)}{m\omega}\sin \omega t, \quad
+      p(t) = -m\omega x(0) \sin \omega t + p(0) \cos \omega t
+    \end{align}
+    Heisenbergの運動方程式に頼らずとも時間発展演算子を$x, p$に直接作用させても同様の結果を得る．
   \end{itemize}
 \end{enumerate}
 \end{document}
