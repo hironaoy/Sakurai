@@ -23,10 +23,35 @@
 
 \noindent
 \begin{enumerate}
-\item \textgt{}
+\item \textgt{系の回転}
 
   \begin{itemize}
-  \item [$\circ$] 
+  \item [$\circ$] 回転演算子
+
+    系を回転するに伴って、状態ベクトル$\ket{\alpha}$がどのように回転するかを考える。回転後の系の状態を$\ket{\alpha}$とし、回転前の系の状態を$\ket{\alpha}$としたとき、次のように回転演算子$\mathscr{D}(\varphi, \mathbf{n})$を定義できる。
+    \begin{align}
+      \ket{\alpha'} = \mathscr{D}(\varphi, \mathbf{n}) \ket{\alpha}
+    \end{align}
+    回転演算子には次を要請する。
+    \begin{align}
+      
+    \end{align}
+
+  \item [$\circ$] 無限小回転演算子
+    
+    例によって、無限小の変化を与える演算子から出発する。無限小平行移動演算子、無限小時間発展演算子の形式からの類推に依って、3次元空間のベクトル$\mathbf{n}$方向の軸回りの無限小回転演算子を次で表す。
+    \begin{align}
+      \mathscr{D}(\mathrm{d}\varphi, \mathbf{n}) = 1 - i\frac{\mathbf{J}\cdot\mathbf{n}}{\hbar}\mathrm{d}\varphi
+    \end{align}
+    ここで、$\mathbf{J}$を角運動量演算子と定義する。この演算子$\mathbf{J}$にはエルミート性を要請する。
+
+  \item [$\circ$] 有限回転演算子
+
+    有限角度の回転は、無限小回転演算子を無限回作用させることによって実現される。よって、有限回転演算子は次のように構成される。簡単のため$z$軸回りの回転で考えることにする。
+    \begin{align}
+      \mathscr{D}_z(\varphi) = \lim_{N \rightarrow \infty} \qty[1 - i\frac{J_z}{\hbar} \cdot \frac{\varphi}{N}]^N = \exp(-i\frac{J_z\varphi}{\hbar})
+    \end{align}
+    系の
   \end{itemize}
 \end{enumerate}
 \end{document}
