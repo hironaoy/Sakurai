@@ -23,36 +23,83 @@
 
 \noindent
 \begin{enumerate}
+
 \item \textgt{系の回転}
 
   \begin{itemize}
-  \item [$\circ$] 回転演算子
+    \item [$\circ$] 回転演算子
 
-    系を回転するに伴って、状態ベクトル$\ket{\alpha}$がどのように回転するかを考える。回転後の系の状態を$\ket{\alpha}$とし、回転前の系の状態を$\ket{\alpha}$としたとき、次のように回転演算子$\mathscr{D}(\varphi, \mathbf{n})$を定義できる。
+    系を回転するに伴って、状態ベクトル$\ket{\alpha}$がどのように回転するかを考える。回転後の系の状態を$\ket{\alpha}$とし、回転前の系の状態を$\ket{\alpha}$としたとき、次のように回転演算子$\mathscr{D}(\varphi, \bm{n})$を定義できる。
     \begin{align}
-      \ket{\alpha'} = \mathscr{D}(\varphi, \mathbf{n}) \ket{\alpha}
+      \ket{\alpha'} = \mathscr{D}(\varphi, \bm{n}) \ket{\alpha}
     \end{align}
-    回転演算子には次を要請する。
+    回転演算子には積が定義できて、群の性質を満たすことを要請する。これは極めて妥当な要請である。
     \begin{align}
-      
+      \mathscr{D}\mathscr{E} = \mathscr{E}\mathscr{D} = \mathscr{D}, \quad \mathscr{D}\mathscr{D}^{-1} =  \mathscr{D}^{-1}\mathscr{D} = \mathscr{E}, \quad (\mathscr{D}_1\mathscr{D}_2)\mathscr{D}_3 = \mathscr{D}_1(\mathscr{D}_2\mathscr{D}_3) =  \mathscr{D}_1\mathscr{D}_2\mathscr{D}_3
     \end{align}
 
   \item [$\circ$] 無限小回転演算子
     
-    例によって、無限小の変化を与える演算子から出発する。無限小平行移動演算子、無限小時間発展演算子の形式からの類推に依って、3次元空間のベクトル$\mathbf{n}$方向の軸回りの無限小回転演算子を次で表す。
+    例によって、無限小の変化を与える演算子から出発する。無限小平行移動演算子、無限小時間発展演算子の形式からの類推に依って、3次元空間のベクトル$\bm{n}$方向の軸回りの無限小回転演算子を次で表す。
     \begin{align}
-      \mathscr{D}(\mathrm{d}\varphi, \mathbf{n}) = 1 - i\frac{\mathbf{J}\cdot\mathbf{n}}{\hbar}\mathrm{d}\varphi
+      \mathscr{D}(\mathrm{d}\varphi, \bm{n}) = 1 - i\frac{\bm{J}\cdot\bm{n}}{\hbar}\mathrm{d}\varphi
     \end{align}
-    ここで、$\mathbf{J}$を角運動量演算子と定義する。この演算子$\mathbf{J}$にはエルミート性を要請する。
+    ここで、$\bm{J}$を角運動量演算子と定義する。この演算子$\bm{J}$にはエルミート性を要請する。
 
   \item [$\circ$] 有限回転演算子
 
     有限角度の回転は、無限小回転演算子を無限回作用させることによって実現される。よって、有限回転演算子は次のように構成される。簡単のため$z$軸回りの回転で考えることにする。
     \begin{align}
-      \mathscr{D}_z(\varphi) = \lim_{N \rightarrow \infty} \qty[1 - i\frac{J_z}{\hbar} \cdot \frac{\varphi}{N}]^N = \exp(-i\frac{J_z\varphi}{\hbar})
+      \mathscr{D}(\varphi, \bm{e}_z) = \lim_{N \rightarrow \infty} \qty[1 - i\frac{J_z}{\hbar} \cdot \frac{\varphi}{N}]^N = \exp(-i\frac{J_z\varphi}{\hbar}) \tag{3.1} \label{AMZ}
     \end{align}
-    系の
+
+  \item [$\circ$] 角運動量の交換関係
+
+  角運動量演算子$\bm{J} = (J_x, J_y, J_z)$は次の交換関係を満たす。
+  \begin{align}
+    [J_i, J_j] = i\hbar \epsilon_{ijk}J_k
+  \end{align}
+  この関係の下で、たとえば$J_x$の期待値は次のように振る舞う。
+  \begin{align}
+    \ev{J_x} &= \bra{\alpha}\mathscr{D}^\dagger(\varphi, \bm{e}_z)J_x\mathscr{D}(\varphi, \bm{e}_z)\ket{\alpha} = \bra{\alpha}\exp(i\frac{J_z\varphi}{\hbar})J_x\exp(-i\frac{J_z\varphi}{\hbar})\ket{\alpha} \\
+             &= \ev{J_x}\cos\varphi - J_y\sin\varphi 
+  \end{align}
+  古典物理学では回転操作に対する変換性によって、ベクトルが定義された。ここで得られた結果は量子力学におけるベクトル演算子の期待値が古典物理学におけるベクトルと同様の振る舞いをするであろうという、推察に整合している。では、一般のベクトル演算子についてはどうであるかが疑問であるが、そこではベクトル演算子の定義が問題になる。しかし、我々はまだ一般のベクトル演算子が何であるかを定義していなかった。量子力学においては古典物理学に整合する形でベクトル演算子が定義されるが、その定義には回転演算子の導入が不可欠である。
+\end{itemize}
+
+\item \textgt{スピン1/2の系}
+
+  \begin{itemize}
+  \item [$\circ$] Pauliの2成分形式
+
+    すでに学んだ、ブラ・ケット、および、演算子の行列要素の定義に従って、スピン1/2の系の行列表現を得ることができる。
+    \begin{align}
+      \ket{+} \dot{=} \mqty[1 \\ 0] \equiv \chi_+, \quad \ket{-} \dot{=} \mqty[0 \\ 1] \equiv \chi_-,\quad   \ket{\alpha}\dot{=} \mqty[c_+ \\ c_-] \equiv \chi, \quad \mathrm{where} \quad
+      \chi ~ c_+\chi_+ + c_-\chi_-
+    \end{align}
+    スピン演算子の行列表現はそれぞれ
+    \begin{align}
+      S_i \,\dot{=}\, \frac{\hbar}{2}\sigma_i, \quad \mathrm{where} \quad \sigma_1 \,\dot{=}\, \mqty[0 & 1 \\ 1 & 0], \quad \sigma_2 \,\dot{=}\, \mqty[0 & -i \\ i & 0], \quad \sigma \,\dot{=}\,
+                                                                                                                                                                     \mqty[1 & 0 \\ 0 & -1]
+    \end{align}
+    である。実際に計算することによって、次の関係を得る。
+    \begin{align}
+      \qty{\sigma_i, \sigma_j} = 2\delta_{ij}, \quad [\sigma_i, \sigma_j] = 2i\epsilon_{ijk}\sigma_k
+    \end{align}
+
+  \item [$\circ$] 回転演算子のPauli行列による表現
+
+    回転演算子の行列要素はPauli行列を用いて次のように書ける。
+    \begin{align}
+      \exp\qty(-\frac{i\bm{S}\cdot\bm{n}}{\hbar}\varphi) \, \dot{=} \, \exp\qty(-\frac{i\bm{\sigma}\cdot\bm{n}}{\hbar}\varphi)
+    \end{align}
+    これは次の関係から明らかである。
+    \begin{align}
+      \bra{\pm}\exp\qty(-\frac{i\bm{S}\cdot\bm{n}}{\hbar}\varphi)\ket{\pm} = \exp\qty(-\frac{i}{\hbar}\varphi\bra{\pm}\bm{S}\cdot\bm{n}\ket{\pm}) = \exp\qty(-\frac{i}{\hbar}\varphi\sum_{q}\bra{\pm}S_q\ket{\pm}n_q)
+      \end{align}
+    
   \end{itemize}
+  
 \end{enumerate}
 \end{document}
 
