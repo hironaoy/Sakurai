@@ -1,0 +1,325 @@
+\documentclass[dvipdfmx]{jarticle}
+
+\usepackage[deluxe]{otf}
+\usepackage{mathrsfs}
+\usepackage{amsmath, amsthm}
+\usepackage{amssymb}
+\usepackage{framed}
+\usepackage[left=20mm, right=20mm, top=20mm, bottom=20mm]{geometry}
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{tikz}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{example}{Example}
+
+\mathtoolsset{showonlyrefs=true}
+
+\begin{document}
+\noindent
+\textbf{J.J. Sakurai \& Jim Napolitano, Modern Quantum Mechanics}
+\footnote{
+参照せよ：\texttt{github.com/hironaoy/Sakurai}（PDF/\LaTeX）
+}
+\hfill Jul 3, 2024\vspace{-2mm} \\
+\hrulefill \\
+
+\noindent
+\begin{enumerate}
+\item 中心力ポテンシャルの問題
+
+  前回までの議論から、$R(r)$が満たす方程式は次であると結論できる。
+  \begin{align}
+    \qty{-\frac{\hbar^2}{2m}\frac{1}{r^2}\dv{r}\qty(r^2\dv{r}) + \frac{\ell(\ell+1)\hbar^2}{2mr^2} + V(r)}R(r) = E R(r) \tag{1.1}\label{radius}
+  \end{align}
+  ここで、$R(r) = u(r)/r$の置き換えを行うことによって、より簡潔な方程式に帰着できる。
+  \begin{align}
+    -\frac{\hbar^2}{2m}\dv[2]{u(r)}{r} + \qty{\frac{\ell(\ell+1)\hbar^2}{2mr^2} + V(r)}u(r) = Eu(r) \tag{1.2}\label{schrodinger}
+  \end{align}
+  これは有効ポテンシャル
+  \begin{align}
+    V_{\mathrm{eff}}(r) = V(r) + \frac{\ell (\ell + 1)\hbar^2}{2mr^2}
+  \end{align}
+  の中を運動する粒子が満たす1次元時間非依存Schrödinger方程式とみなせる。よって、1次元の波動関数が満たす諸性質を満たす。
+
+  以下では束縛状態の一般論を述べる。原点付近での振る舞いは次のようである：\eqref{schrodinger}は小さい$r$に対しては次のようになる。
+  \begin{align}
+    \dv[2]{u(r)}{r} = \frac{\ell(\ell + 1)}{r^2}u(r) \quad \mathrm{as} \quad r \rightarrow 0
+  \end{align}
+  この方程式の一般解は次の形式を持つ。
+  \begin{align}
+    u(r) = Ar^{\ell + 1} + \frac{B}{r^{\ell}}, 
+  \end{align}
+  しかし、束縛状態を考える場合においては直ちに$B = 0$が結論される。それは波動関数$R(r)Y^{m}_{l}(\theta, \varphi)$の規格化条件から
+  \begin{align}
+    \int_{0}^{\infty} \dd r \, u^*(r)u(r) = 1
+  \end{align}
+  が要請されるが、$B \ne 0$の場合には$\ell > 0$では明らかに満足されず、$\ell = 0$の場合にはデルタ関数型ポテンシャルを除いて満足されないからである。よって、原点付近では$u(r) \sim r^{\ell + 1}$の依存性があることが結論された。
+
+  遠方での振る舞いは次のようである：\eqref{schrodinger}は十分遠方では次のようになる。
+  \begin{align}
+    \dv[2]{u(r)}{r} = \kappa^2u(r) \quad \mathrm{where} \quad \kappa^2 = -\frac{2mE}{\hbar^2}
+  \end{align}
+  これは容易に解けて、束縛状態を考える限りにおいては$\kappa$は実数に取れて、十分遠方では$u(r) \sim e^{-\kappa r}$の依存性があることが結論される。
+
+  以上を踏まえて、無次元の変数$\rho = \kappa r$を導入した後に、一般の$r$に対して$u(r) = \rho^{\ell + 1}e^{-\rho}w(\rho)$と書くことにする。すると、新しく導入した関数$w(\rho)$は次を満たす。
+  \begin{align}
+    \dv[2]{w(\rho)}{\rho} + 2\qty(\frac{\ell + 1}{\rho} - 1)\dv{w(\rho)}{\rho} + \qty{\frac{V(r)}{E} - \frac{2(\ell + 1)}{\rho}}w(\rho) = 0 \tag{1.3} \label{rho}
+  \end{align}
+
+  \textbf{Example 1.}（無限空間中の自由粒子）完全な自由粒子、すなわち$V(r) = 0$の場合を考察する。この場合は\eqref{radius}から出発するのが都合が良い。次の方程式を得る。
+    \begin{align}
+      \dv[2]{R(\rho)}{\rho} + \frac{2}{\rho}\dv{R(\rho)}{\rho} + \qty[1 - \frac{\ell (\ell + 1)}{\rho^2}] R(\rho) = 0 \quad \mathrm{where} \quad \rho = \kappa' r, \quad E = \frac{\kappa'^2\hbar^2}{2m} > 0
+    \end{align}
+    この方程式の2つの独立な解として、球Bessel関数、球Neumann関数がある。
+    \begin{align}
+      j_\ell(\rho) = (-\rho)^\ell \qty(\frac{1}{\rho}\dv{\rho})^\ell \frac{\sin\rho}{\rho}, \quad
+      j_\ell(\rho) = -(-\rho)^\ell \qty(\frac{1}{\rho}\dv{\rho})^\ell \frac{\cos\rho}{\rho}
+    \end{align}
+
+    \textbf{Example 2.}（無限に深い球形井戸型ポテンシャル）球形の檻に閉じ込められている粒子を考える。すなわち、次のポテンシャルが与えられている場合である。
+    \begin{align}
+      V(r)= \left\{ \begin{array}{ll}
+        0 & \mathrm{for} \quad r < a \\
+        \infty & \mathrm{otherwise}
+        \end{array}
+        \right.
+    \end{align}
+    このポテンシャル下の束縛状態を考える限りにおいては$E > 0$である。よって、Example 1.の解をそのまま利用できる。先に述べた中心力ポテンシャルの問題の一般論から、束縛状態では十分大きい$r$に対して$R(r) \sim r^\ell$のように振る舞わなければならないのであった。この条件を満たすのは$j_\ell(\kappa'r)$のみであるから、この場合の解は
+    \begin{align}
+      R(r) = \mathrm{const.} \times j_\ell(\kappa'r)
+    \end{align}
+    である。境界条件$R(a) = j_\ell(\kappa' a) = 0$から、エネルギーが量子化される。
+
+    \textbf{Example 3.}（3次元調和振動子）3次元調和振動子を考える。すなわち、次のポテンシャルが与えられている場合である。
+    \begin{align}
+      V(r) = \frac{m\omega^2x^2}{2} + \frac{m\omega^2y^2}{2} + \frac{m\omega^2z^2}{2} = \frac{m\omega^2r^2}{2}
+    \end{align}
+    このポテンシャルは無限遠方で$V(r)$が0に収束しないので、先に述べた一般論は適用できない。よって、この場合は\eqref{schrodinger}から出発するのが都合が良い。
+    \begin{align}
+      \dv[2]{u(\rho)}{\rho} - \frac{\ell(\ell+1)}{\rho^2}u(\rho) + (\lambda - \rho^2)u(\rho) = 0 \quad \mathrm{where} \quad E = \frac{\hbar \omega \lambda}, \quad r = \sqrt{\frac{\hbar}{m\omega}}\rho
+    \end{align}
+    このポテンシャル下の束縛状態を考える限りにおいては$E > 0$であるので$\lambda > 0$である。$u(\rho) = \rho^{\ell + 1}e^{-\rho^2/2}f(\rho)$なる関係によって$f(\rho)$を定義して、方程式を書き直すと次を得る。
+    \begin{align}
+      \rho\dv[2]{f(\rho)}{\rho} + 2\qty{(\ell + 1) - \rho^2}\dv{f(\rho)}{\rho} + \qty{\lambda - (2\ell + 3)}\rho f(\rho) = 0
+    \end{align}
+    微分方程式の級数解法によって解くことができる。束縛状態であることから、エネルギーが量子化され次の関係が得られる。
+    \begin{align}
+      E_{q\ell} = \qty(2q + \ell + \frac{3}{2})\hbar\omega \quad \mathrm{where} \quad  q: \mathrm{natural\,number}
+    \end{align}
+    \textbf{Example 4.}（Coulombポテンシャル）Coulombポテンシャルを考える。すなわち、次のポテンシャルが与えられている場合である。
+    \begin{align}
+      V(r) = - \frac{Ze^2}{r}
+    \end{align}
+    この場合は先に述べた束縛状態に関する一般論が適用できる。よって、\eqref{rho}から出発するのが都合が良い。
+    \begin{align}
+      \rho\dv[2]{f(\rho)}{\rho} + 2\qty(\ell + 1 - \rho)\dv{f(\rho)}{\rho} + \qty{\rho_0 - (2\ell + 1)}\rho f(\rho) = 0, \quad \mathrm{where} \quad \rho_0 = \sqrt{\frac{2mc^2}{\qty|E|}}Z\alpha
+    \end{align}
+    この方程式の解は合流型超幾何関数を用いて表される。
+    \begin{align}
+      w(\rho) = F\qty(\ell + 1 - \frac{\rho_0}{2}; 2(\ell + 1); 2\rho)
+    \end{align}
+    束縛状態であることから、（級数が有限の項数で終結するので）エネルギーが量子化され、次の関係が得られる。
+    \begin{align}
+      E = -\frac{mc^2}{2} \cdot \frac{Z^2\alpha^2}{n^2}
+    \end{align}
+
+  \item 角運動量の合成
+
+    * 以下、演算子の下付き添字は$x, y, z$の値を取るものとします。
+    
+    異なる部分空間にある2つの角運動量演算子$J_i^{(1)}$と$J_i^{(2)}$を考える。それぞれ、角運動量の交換関係を満たす。
+    \begin{align}
+      \qty[J^{(1)}_i, J^{(1)}_j] = i\hbar \epsilon_{ijk}J^{(1)}_k, \quad \qty[J^{(2)}_i, J^{(2)}_j] = i\hbar \epsilon_{ijk}J^{(2)}_k
+    \end{align}
+    異なる空間の元に作用する演算子は交換することとする。このとき、全角運動量$J_i$を
+    \begin{align}
+      J_i = J^{(1)}_i + J^{(2)}_i
+    \end{align}
+    で定める。この定義のもとで、$J_i$は角運動量の交換関係を満たす。
+    \begin{align}
+      [J_i, J_j] = i\hbar\epsilon_{ijk}J_k
+    \end{align}
+    よって、前回の角運動量の固有値に関するすべての帰結は（交換関係のみから導出されたので）全角運動量$J_i$に関しても成り立つ。
+
+    いま、全系は明らかに各々の部分空間の直積空間であるから、基底として次のケットの組
+    \begin{align}
+      \qty{\ket{j_1j_2;m_1m_2}}
+    \end{align}
+    を採用できる。異なる空間の元に作用する演算子が交換することからもこのような同時固有ケットの存在の正当性が裏付けられる。
+    
+    この基底で、$J_z$や$\bm{J}^2 = J_xJ_x + J_yJ_y + J_zJ_z$の固有状態を書くことを考える。まず、角運動量の一般論から$J_z$と$\bm{J}^2$は同時対角化可能である。加えて、$\qty(\bm{J}^{(1)})^2$と$\qty(\bm{J}^{(2)})^2$とも同時対角化可能である。よって、次のような固有ケットの組があるはずである。
+    \begin{align}
+      \qty{\ket{j_1j_2;jm}}
+    \end{align}
+    いま、我々が実行すべきことはケット$\ket{j_1j_2;jm}$を基底$\qty{\ket{j_1j_2;m_1m_2}}$で展開することである。この場合、$\qty(\bm{J}^{(1)})^2$と$\qty(\bm{J}^{(2)})^2$の固有値は与えられているものとして差し支えないので、以下では各ケットの$j_1, j_2$を省略する。
+
+    ブラ・ケット記法の範疇で抽象的な展開を行うのは容易である。直積空間とみなしたときの基底の完全性の式によって
+    \begin{align}
+      \ket{jm} = \sum_{m_1, m_2}\ket{m_1m_2}\bra{m_1m_2}\ket{jm}
+    \end{align}
+    を得る。展開係数$\bra{m_1m_2}\ket{jm}$はClebsch-Gordan係数\footnote{Clebschは英語の発音で読むと「クレブシュ」であるが、Clebschはドイツの数学者であり、ドイツ語の発音では「クレプシュ」に近い。「現代の量子力学」日本語翻訳版では「クレブシュ」と記されていたが、正しい発音を意識して「クレブシュ」と記されたい。}と呼ばれる。以下ではこの係数の性質を調べる。
+
+    \textbf{Theorem 1.} 考えている$m_1, m_2, j, m$に対してClebsch-Gordan係数が0でない場合、$m = m_1 + m_2$が成り立つ。
+
+    （証明）次の式が成り立つ。
+    \begin{align}
+      J_z\ket{jm} = \qty(J^{(1)}_z + J^{(2)}_z)\ket{jm}
+    \end{align}
+    これに左から$\bra{m_1m_2}$を掛ける。すると直ちに次が導かれる。
+    \begin{align}
+      \qty(m - m_1 - m_2)\bra{m_1m_2}\ket{jm} = 0
+    \end{align}
+    これによって、0でないClebsch-Gordan係数に関して$m = m_1 + m_2$は明らかである。\hfill （Q.E.D.）
+
+    
+    \textbf{Theorem 2.} 考えている$m_1, m_2, j, m$に対して次の関係が成り立たない限り、Clebsch-Gordan係数は0になる。
+    \begin{align}
+      \qty|j_1 - j_2| \leq j \leq j_1 + j_2
+    \end{align}
+        （証明）$j_1 \geq j_2$としても一般性は欠かない。いま、Theorem 1.より$m = m_1 + m_2$であり、前回の角運動量の一般論から$m_1 = -j_1, \dots , j_2, m_2 = -j_2, \dots j_2$であるから$m$の最大値は$m^{(\mathrm{max})} = j_1 + j_2$である。つまり、$m_1 = j_1, m_2 = j_2$のとき$m = m^{(\mathrm{max})}$である。同時に角運動量の一般論より、$m = -j ,\dots j$である。つまり、$j = m^{\mathrm{(max)}} = j_1 + j_2$であるとわかる。$m = m^{(\mathrm{max})}$の状態には縮退はないから次の式が成り立つ。
+        \begin{align}
+          \ket{j_1 + j_2, j_1 + j_2} = \ket{j_1j_2}
+        \end{align}
+        次に、$m = m^{(\mathrm{max})} - 1 = j_1 + j_2 - 1$の状態は$(m_1, m_2) = (j_1, j_2 - 1), (j_1 - 1, j_2)$の2つの状態がある。この2つの状態は$j$の値によって区別されるべきである。$m = m^{(\mathrm{max})} - 1 = j_1 + j_2 - 1$を許容するのは$j = j_1 + j_2, j_1 + j_2 - 1$である。よって、$m = m^{(\mathrm{max})} - 1 = j_1 + j_2 - 1$の状態は次の2つである。
+        \begin{align}
+          \ket{j_1 + j_2, j_1 + j_2 - 1}, \quad \ket{j_1 + j_2 - 1, j_1 + j_2 - 1}
+        \end{align}
+        続けて、$m = m^{(\mathrm{max})} - 2 = j_1 + j_2 - 2$の状態には$(m_1, m_2) = (j_1, j_2 - 2), (j_1 - 1, j_1 - 1), (j_1 - 2, j_2)$の3つの状態がある。この3つの状態は$j$の値によって区別されるべきである。$m = m^{(\mathrm{max})} - 2 = j_1 + j_2 - 2$を許容するのは$j = j_1 + j_2, j_1 + j_2 - 1, j_1 + j_2 - 2$である。よって、$m = m^{\mathrm{(max)}} - 2$の状態は次の3つである。
+        \begin{align}
+          \ket{j_1 + j_2, j_1 + j_2 - 2}, \quad \ket{j_1 + j_2 - 1, j_1 + j_2 - 2}, \quad \ket{j_1 + j_2 - 2, j_1 + j_2 - 2}
+        \end{align}
+        このようにして、状態$\ket{jm}$を特定していくことができる。一般に$m = m^{(\mathrm{max})} - n = j_1 + j_2 - n\, (n \leq 2j_2 \leq 2j_1)$を許容するのは$j = j_1 + j_2, j_1 + j_2 - 1, \dots ,j_1 + j_2 - n$である。一つの$m$に対して最も多くの$j$が対応するのは$n = 2j_2$つまり、$m = j_1 - j_2$のときである。このときは、$m = j_1 - j_2$に対して、$2j_2 + 1$重縮退している。このときの最小の$j$が明らかにすべての$j$で最小であり、それは$j = j_1 - j_2$である。以上より
+        \begin{align}
+          j_1 - j_2 \leq j \leq j_1 + j_2
+        \end{align}
+        の結論を得る。これらは$m$の値を$m_1, m_2$の値で分類した表を書いてみるとわかりやすい。\hfill（Q.E.D.）
+
+        \textbf{Theorem 3.} Clebsch-Gordan係数はユニタリ行列を構成する。つまり、次が成り立つ。
+        \begin{align}
+          \sum_{j, m} \bra{m_1m_2}\ket{jm}\bra{jm}\ket{m_1'm_2'} = \delta_{m_1'm_1}\delta_{m_2'm_2},\quad \sum_{m_1, m_2} \bra{jm}\ket{m_1m_2}\bra{m_1m_2}\ket{jm} = \delta_{j'j}\delta_{m'm}
+        \end{align}
+
+        （証明）自明なので省略。\hfill（Q.E.D.）
+
+        続いて、Clebsch-Gordan係数を具体的に求める方法について論じる。
+        
+        \textbf{Theorem 4.}（Clebsch-Gordan係数の漸化式）次の漸化式が成り立つ。
+        \begin{align}
+          &\sqrt{(j\mp m)(j \pm m + 1)}\bra{j_1j_2;m_1m_2}\ket{j_1j_2;j,m\pm 1}\\
+          &\quad \quad\quad= \sqrt{(j_1 \mp m_1 + 1)(j_1 \pm m_1)} \bra{j_1j_2;m_1\mp1, m_2}\ket{j_1j_2; jm}\\
+          &\quad \quad\quad+ \sqrt{(j_2 \mp m_2 + 1)(j_2 \pm m_2)} \bra{j_1j_2;m_1, m_2\mp 1}\ket{j_1j_2; jm}
+        \end{align}
+
+        （証明）以下でもケットを区別する$j_1, j_2$は省略する。次の関係
+        \begin{align}
+          \ket{jm} = \sum_{m'_1,m'_2} \ket{m'_1m'_2}\bra{m'_1m'_2}\ket{jm}
+        \end{align}
+        から出発する。はしご演算子$J_\pm = J^{(1)}_\pm + J^{(2)}_\pm$を作用させると
+        \begin{align}
+          \sqrt{(j\mp m)(j\pm m+1)}\ket{j,m\pm 1} = \sum_{m'_1, m'_2}\sqrt{(j_1\mp m_1')(j_1 + m'_1 + 1)}\ket{m_1' \pm 1, m'_2}\bra{m'_1m'_2}\ket{jm} \\
+          +\sum_{m'_1, m'_2}\sqrt{(j_2\mp m_2')(j_2 + m'_2 + 1)}\ket{m_1', m'_2\pm 1}\bra{m'_1m'_2}\ket{jm}
+        \end{align}
+        を得る。両辺において、ブラ$\bra{m_1m_2}$との内積を考えると
+        \begin{align}
+          &\sqrt{(j\mp m)(j\pm m+1)}\bra{m_1m_2}\ket{j,m\pm 1} \\
+          &\quad \quad \quad = \sum_{m'_1, m'_2}\sqrt{(j_1\mp m_1')(j_1 + m'_1 + 1)}\bra{m_1m_2}\ket{m_1' \pm 1, m'_2}\bra{m'_1m'_2}\ket{jm} \\
+          &\quad\quad\quad+\sum_{m'_1, m'_2}\sqrt{(j_2\mp m_2')(j_2 + m'_2 + 1)}\bra{m_1m_2}\ket{m_1', m'_2\pm 1}\bra{m'_1m'_2}\ket{jm} \\
+          &\quad \quad \quad = \sum_{m'_1, m'_2}\sqrt{(j_1\mp m_1')(j_1 + m'_1 + )}\, \delta_{m_1,m_1'\pm1}\delta_{m_2m_2'}\bra{m'_1m'_2}\ket{jm} \\
+          &\quad\quad\quad+\sum_{m'_1, m'_2}\sqrt{(j_2\mp m_2')(j_2 + m'_2 + 1)} \, \delta_{m_1m1'}\delta_{m_2m'_2\pm 1}\bra{m'_1m'_2}\ket{jm}
+        \end{align}
+        である。和を計算すれば目的の漸化式を得る。\hfill（Q.E.D.）
+
+        このTheorem 4.によって、原理的にはすべてのClebsch-Gordan係数を求めることができる。以下に具体的な例を示す。\footnote{以下の例は図を描いて考えるとわかりやすい。昨日の私にはTikZで図を描く気力はなかった。ホワイトボードを用いた口頭での説明に集中されたい。}
+
+        \textbf{Example 1.}（2つのスピン半分の粒子のスピンの合成）いま、スピン半分の粒子を合成するのだから、$j_1 = j_2 = 1/2$である。よって、$m_1 = -1/2, 1/2, m_2 = -1/2, 1/2$を取りうる。それぞれの係数を区別するために、書いたように$(\pm,\pm)$でラベルすることにする。
+
+        続いて、$j$が取りうる値を考える。Theorem 2.より、$0\leq j \leq 1$つまり、$j = 0, 1$である。このことからもClebsch-Gordan係数が0でない$(m_1, m_2)$が制限される。角運動量の基本的な関係$m = -j, \dots ,j$を思い出すと、$j = 0$のとき、$m = 0$、$j = 1$のとき、$m = -1, 0, 1$が結論される。いま、$m = m_1 + m_2$であることも考慮すると、0でないClebsch-Gordan係数はもっと制限されることになる。
+
+        まず、$j = 0$の場合を考える。 $J_+$または、$J_-$に関する漸化式から直ちに$(-,+)$と$(+,-)$間の関係が求まる：
+        \begin{align}
+          \bra{-+}\ket{0,0} = - \bra{+-}\ket{0, 0}
+        \end{align}
+        続いて、$j = 1$の場合を考える。$J_-$に関する漸化式から、直ちに$(+,-)$と$(+, +)$間の関係が得られる：
+        \begin{align}
+          \bra{+-}\ket{1,0} = \frac{1}{\sqrt{2}}\bra{++}\ket{1, 1}
+        \end{align}
+        $(-,+),(+,+),(+,+)$間の関係が$j_+$に関する漸化式から求められる。$(+,-)$における係数が$(+,+)$の係数で表されているので、$(-,+)$における係数を$(+,+)$の係数で表すことができる：
+        \begin{align}
+          \bra{-+}\ket{1,0} = \frac{1}{\sqrt{2}}\bra{++}\ket{1,1}
+        \end{align}
+        最後に、$(-,-),(-,+),(+-)$間の関係が$J_-$に関する漸化式から得られ、これまでと同様にして、$(-,-)$における係数を$(+,+)$の係数で表すことができる：
+        \begin{align}
+          \bra{--}\ket{1,-1} = \bra{++}\ket{1,1}
+        \end{align}
+        以上で0でないClebsch-Gordan係数が未知数一つを残して得られたことになる。その未知数は規格化条件によって決定され、ついに$\qty{\ket{jm}}$を$\qty{\ket{\pm\pm}}$で表現することができる：
+        \begin{gather}
+          \ket{0, 0} = \frac{1}{\sqrt{2}}\qty(\ket{+-} - \ket{-+}), \quad 
+          \ket{1, -1} = \ket{--}, \quad \ket{1, 0} = \frac{1}{\sqrt{2}}\qty(\ket{+-} + \ket{-+}), \quad \ket{1,1} = \ket{++}
+        \end{gather}
+        \textbf{Example 2.}（とある粒子の軌道角運動量とスピン半分の合成）いま、$j_1, m_1, j_2, m_2$がいかなる値を取るかを次に整理する。
+        \begin{align}
+          j_1 = \ell, \quad m_1 = -\ell, \dots , \ell, \quad j_2 = \frac{1}{2}, \quad m_2 = -\frac{1}{2}, \frac{1}{2}
+        \end{align}
+        全角運動量固有値$j, m$は次の制限を受ける。
+        \begin{gather}
+          j = \ell - \frac{1}{2}, \ell + \frac{1}{2}, \quad
+          -\qty(\ell - \frac{1}{2}) \leq m \leq \ell - \frac{1}{2} \quad \mathrm{or} \quad -\qty(\ell + \frac{1}{2}) \leq m \leq \ell + \frac{1}{2}
+        \end{gather}
+        教科書どおり、$j = \ell + 1/2$の場合を考察することにする。Clebsch-Gordan係数の漸化式から、次の関係を得る。
+        \begin{align}
+          \bra{m - \frac{1}{2}, \frac{1}{2}}\ket{\ell + \frac{1}{2}, m} = \sqrt{\frac{\ell + m + 1/2}{\ell + m + 3/2}} \bra{m + \frac{1}{2}, \frac{1}{2}}\ket{\ell + \frac{1}{2}, m+ 1}
+        \end{align}
+        $m$は最大で、$\ell + \frac{1}{2}$の値を取ることを考慮して、この漸化式を解くと
+        \begin{align}
+        \bra{m - \frac{1}{2},\frac{1}{2}}\ket{\ell + \frac{1}{2}, m} = \sqrt{\frac{\ell + m + 1/2}{2\ell + 1}}\bra{\ell, \frac{1}{2}}\ket{\ell + \frac{1}{2}, \ell + \frac{1}{2}}
+        \end{align}
+        である。これで、任意の$m$におけるClebsch-Gordan係数を求めることができた。いま、次のような展開が可能である。
+        \begin{align}
+          \ket{j = \ell + \frac{1}{2}, m} &= \sqrt{\frac{\ell + m + 1/2}{2\ell + 1}}\ket{m_1 = m - \frac{1}{2}, m_2 = \frac{1}{2}} + X\ket{m_1 = m + \frac{1}{2}, m_2 = -\frac{1}{2}} \\
+          \ket{j = \ell - \frac{1}{2}, m} &= Y\ket{m_1 = m - \frac{1}{2}, m_2 = \frac{1}{2}} + Z\ket{m_1 = m + \frac{1}{2}, m_2 = -\frac{1}{2}}
+        \end{align}
+        今から、残されたClebsch-Gordan係数$X, Y, Z$を決定しなければならない。Clebsch-Gordan係数が直交行列をなすという条件（教科書 p. 211 式3.363）から、次を仮定する。
+        \begin{align}
+          \mqty[
+            \sqrt{(\ell + m + 1/2)/(2\ell + 1)} & X \\
+            Y & Z
+          ] = 
+            \mqty[
+           \cos \theta & \sin \theta \\
+          -\sin \theta & \cos \theta
+        ]
+        \end{align}
+        いま、$\cos\theta$がわかっているので、$X, Y, Z$を求めることができる：
+        \begin{align}
+          \mqty[
+            \sqrt{(\ell + m + 1/2)/(2\ell + 1)} & \sqrt{(\ell - m + 1/2)/(2\ell + 1)}\\
+           -\sqrt{(\ell - m + 1/2)/(2\ell + 1)} & \sqrt{(\ell + m + 1/2)/(2\ell + 1)}
+          ]
+        \end{align}
+        めでたく、すべてのClebsch-Gordan係数がわかった。
+
+      \item Clebsch-Gordan係数と回転行列
+        
+        \textbf{Theorem 1.}（Clebsch-Gordan級数）回転演算子の行列表現は次のように展開可能である。部分系を個別に回転する表現が全系をまとめて回転する表現に分解できるということである。
+        \begin{align}
+          \mathscr{D}_{m_1m_1'}^{(j_1)}(R)\mathscr{D}_{m_2m_2'}^{(j_2)}(R) = \sum_{j = \qty|j_1 - j_2|}^{j_1 + j_2}\sum_m \sum_{m'}\bra{j_1j_2;m_1m_2}\ket{j_1j_2;jm}\bra{j_1j_2;m_1'm_2'}\ket{j_1j_2;jm'}\mathscr{D}_{mm'}^{(j)}(R)
+        \end{align}
+            （証明）定義から次の関係が成り立つ。\footnote{教科書では直積$\ket{a_1}\ket{a_2}$に関連する計算法則の定義がなされていないが気にせずに進む。}
+            \begin{align}
+              \bra{j_1j_2;m_1m_2}\mathscr{D}(R)\ket{j_1j_2;m'_1m'_2} = \bra{j_1m_1}\mathscr{D}(R)\ket{j_1m_1'}\bra{j_1m_1}\mathscr{D}(R)\ket{j_2m_2'} = \mathscr{D}_{m_1m_1'}^{(j_1)}(R)\mathscr{D}_{m_2m_2'}^{(j_2)}(R)
+            \end{align}
+            一方、この式の左辺は$\qty{\ket{j,m}}$で展開することも可能である。
+            \begin{align}
+              \bra{j_1j_2;m_1m_2}\mathscr{D}(R)\ket{j_1j_2;m'_1m'_2} &= \sum_{j, m, j', m'}\bra{j_1j_2;m_1m_2}\ket{j_1j_2;j'm}\\
+              &\times\bra{j_1j_2;j'm}\mathscr{D}(R)\ket{j_1j_2;jm}\bra{j_1j_2;jm}\ket{j_1j_2;m'_1m'_2}\\
+              &=\sum_{j, m, j', m'}\bra{j_1j_2;m_1m_2}\ket{j_1j_2;j'm}\mathscr{D}^{(j')}_{mm'}\delta_{jj'}\bra{j_1j_2;jm}\ket{j_1j_2;m'_1m'_2} \\
+              &=\sum_{j, m, m'}\bra{j_1j_2;m_1m_2}\ket{j_1j_2;jm}\mathscr{D}^{(j)}_{mm'}\bra{j_1j_2;jm}\ket{j_1j_2;m'_1m'_2}
+            \end{align}
+            題意が示せた。\hfill （Q.E.D）
+\end{enumerate}
+
+\end{document}
+
